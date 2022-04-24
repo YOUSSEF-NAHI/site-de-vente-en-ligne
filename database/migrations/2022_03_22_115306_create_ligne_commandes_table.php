@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->integer('prixTotal');
             $table->integer('quantite');
-            $table->boolean('status')->default(0);
             $table->timestamps();
 
             $table->foreignId('commande_id')

@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('produits', function (Blueprint $table) {
             $table->id();
             $table->string('designation');
+            $table->string('image');
             $table->string('marque');
             $table->integer('Qstock');
             $table->integer('prix');
             $table->timestamps();
 
-            $table->integer('sous_ategorie_id')->unsigned()->unique();
+            $table->integer('sous_categorie_id')->unsigned();
 
         });
 

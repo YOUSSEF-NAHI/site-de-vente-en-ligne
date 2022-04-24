@@ -1,0 +1,11 @@
+INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
+
+
+ (NULL, 'tshirt', NULL, NULL), (NULL, 'shows', NULL, NULL);
+
+
+
+une application fermme a l'extention et à la modification
+
+REst?
+angular?

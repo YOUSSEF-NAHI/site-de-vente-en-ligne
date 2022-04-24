@@ -12,6 +12,20 @@ class Produit extends Model
 {
     use HasFactory;
 
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'designation',
+        'image',
+        'marque',
+        'Qstock',
+        'prix',
+        'sous_categorie_id',
+    ];
+
     /**
      * Get all of the avis for the Produit
      *
@@ -27,6 +41,6 @@ class Produit extends Model
      */
     public function sousCategorie()
     {
-        return $this->hasOne(SousCategorie::class);
+        return $this->belongsTo(SousCategorie::class);
     }
 }

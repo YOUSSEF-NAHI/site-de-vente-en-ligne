@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
             $table->integer('prixTotal');
+            $table->boolean('status')->default(0);
+            $table->boolean('livré')->default(0);
             $table->timestamps();
 
             $table->foreignId('user_id')

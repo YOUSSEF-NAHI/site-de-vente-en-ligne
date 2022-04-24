@@ -12,6 +12,16 @@ class Panier extends Model
 {
     use HasFactory;
 
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'prixTotal',
+        'user_id',
+    ];
+
     /**
      * The products that belong to the Cart
      *
@@ -19,7 +29,7 @@ class Panier extends Model
      */
     public function produits()
     {
-        return $this->belongsToMany(Produit::class, 'panier_produit', 'panier_id', 'produit_id')
+        return $this->belongsToMany(Produit::class, 'panier_produits', 'panier_id', 'produit_id')
                     ->using(PanierProduit::class)
                     ->as('demande')
                     ->withPivot('prixTotal', 'quantite')

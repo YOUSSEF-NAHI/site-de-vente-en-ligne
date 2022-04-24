@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\SousCategorie;
+use App\Models\Categorie;
 
 class SousCategorie extends Model
 {
@@ -16,6 +16,6 @@ class SousCategorie extends Model
      */
     public function Categorie()
     {
-        return $this->hasOne(Categorie::class);
+        return $this->belongsTo(Categorie::class);
     }
 }
