@@ -36,6 +36,7 @@ require __DIR__.'/auth.php';
  Route::get('/categorie/{id}', [IndexController::class, 'categorie'])->name('produit.categorie');
  Route::get('/ajouter-produit/{idProduit}', [IndexController::class, 'ajouterAuPanier'])->name('ajouterAuPanier');
  Route::post('/produit/avis', [IndexController::class, 'ajouterAvis'])->name('ajouterAvis');
+ Route::get('/produit/{id}/pdf', [IndexController::class, 'createPDF'])->name('createPDF');
 
 // Route::get('/commande', [IndexController::class, 'getCommandes'])->name('commande ');
 

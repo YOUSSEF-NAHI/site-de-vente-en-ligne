@@ -30,12 +30,16 @@
           <div class="price"> {{ $produit->prix }} DH</div>
           
           <form class="form">
-            <a href="{{ route('ajouterAuPanier', $produit->id) }}" id="checkout_btn" class="btn">Ajouter au panier</a>
+            <a href="{{ route('ajouterAuPanier', $produit->id) }}" class="btn">Ajouter au panier</a>
           </form>
           <h3>Détail du produit</h3>
       <p>
         {{ $produit->designation }}
       </p>
+      
+      <form class="form">
+        <a href="{{route('createPDF',$produit->id)}}" class="btn">export PDF</a>
+      </form>
     </div>
   </div>
 </main>
@@ -45,12 +49,12 @@
         <p class="my-auto ml-4" style="border-radius: ">commentaires</p>
     </div>
     @auth
-      <div class="my-auto mr-4">
-        <a href="#addComment" data-toggle="modal" 
-          style="color: white; background-color:green; padding:5px; border-radius:10px">
-          ajouter
-        </a>
-      </div>
+    <div class="my-auto mr-4">
+      <a href="#addComment"" 
+        style="color: white; background-color:green; padding:5px; border-radius:10px">
+        ajouter
+      </a>
+    </div>
     @endauth
   </div>
   @foreach ($produit->avis->reverse() as $avi)

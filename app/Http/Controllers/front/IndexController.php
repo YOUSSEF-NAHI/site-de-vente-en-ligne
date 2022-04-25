@@ -16,6 +16,9 @@ use App\Models\Commande;
 use App\Models\SousCategorie;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+use PDF;
 
 class IndexController extends Controller
 {
@@ -88,6 +91,19 @@ class IndexController extends Controller
             return redirect()->route('produit.show',$request->produit)->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
     }
+
+    // Generate PDF
+    public function createPDF($id) {
+        // retreive all records from db
+        $produit = Produit::find($id);
+        if($produit){
+        $pdf = \Barryvdh\DomPDF\Facade::class::loadView('front.fiche', compact('produit'));
+        // download PDF file with download method
+        //$pdf = \Barryvdh\DomPDF\Facade::class::loadHTML("<p>Mon contenu HTML ici</p>");
+        return $pdf->download(Str::slug($produit->sousCategorie->name).$produit->id.'.pdf');
+        }
+        
+      }
 
     public function show($id){
         //return Produit::with('avis.user')->find($id);
