@@ -18,7 +18,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class IndexController extends Controller
 {
@@ -87,8 +87,8 @@ class IndexController extends Controller
         } catch (\Exception $ex) {
             DB::rollback();
             //return $request;
-            return $ex;
-            return redirect()->route('produit.show',$request->produit)->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+           // return $ex;
+            return redirect()->route('produit.show',$request->produit)->with(['error' => "une erreur detecté"]);
         }
     }
 
@@ -97,13 +97,14 @@ class IndexController extends Controller
         // retreive all records from db
         $produit = Produit::find($id);
         if($produit){
-        $pdf = \Barryvdh\DomPDF\Facade::class::loadView('front.fiche', compact('produit'));
-        // download PDF file with download method
-        //$pdf = \Barryvdh\DomPDF\Facade::class::loadHTML("<p>Mon contenu HTML ici</p>");
-        return $pdf->download(Str::slug($produit->sousCategorie->name).$produit->id.'.pdf');
+            $pdf = PDF::loadView('front.fiche', compact('produit'));
+            // download PDF file with download method
+            //$pdf = \Barryvdh\DomPDF\Facade::class::loadHTML("<p>Mon contenu HTML ici</p>");
+            return $pdf->download(Str::slug($produit->sousCategorie->name).$produit->id.'.pdf');
         }
         
-      }
+        
+    }
 
     public function show($id){
         //return Produit::with('avis.user')->find($id);
@@ -111,6 +112,8 @@ class IndexController extends Controller
         if($produit){
             return view('front.produit', compact('produit'));
         }
+        return redirect()->route('index');
+        
     }
 
     public function categorie($id){
@@ -136,11 +139,14 @@ class IndexController extends Controller
                     })->orderBy('id','desc')->paginate(6);
                 break;
             }
-        }
 
-        if($produits){
-            return view('front.categorie', compact('produits'));
+            if($produits){
+                return view('front.categorie', compact('produits'));
+            }
         }
+        return redirect()->route('index');
+
+        
     }
 
     public function ajouterAuPanier($idProduit){

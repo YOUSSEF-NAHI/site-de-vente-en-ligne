@@ -51,10 +51,10 @@ require __DIR__.'/auth.php';
  Route::get('/commandes', [PanierController::class, 'commandes'])->name('commandes');
 // les routes Admin
 
-Route::get('/admin/login', [LoginController::class, 'getLogin'])->name('get.admin.login');
-Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login');
+Route::get('/admin/login', [LoginController::class, 'getLogin'])->name('get.admin.login')->middleware('guest:admin');
+Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login')->middleware('guest:admin');
 Route::get('/admin/save', [LoginController::class, 'save'])->name('admin.save');
-Route::get('/admin/logout', [LoginController::class, 'destroy'])->name('admin.logout');
+Route::get('/admin/logout', [LoginController::class, 'destroy'])->name('admin.logout')->middleware('auth:admin');
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 

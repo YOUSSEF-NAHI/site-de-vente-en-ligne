@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Produit;
 use App\Models\SousCategorie;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProduitController extends Controller
@@ -34,9 +34,14 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        $produits = Produit::with('sousCategorie.Categorie')->paginate(3);
-        $categories = Categorie::with('sousCategories')->get();
-        return view('admin.produits.index', compact('produits', 'categories'));
+        if (Auth::user()->role == "Administrator") {
+            $produits = Produit::with('sousCategorie.Categorie')->orderBy('id','desc')->paginate(9);
+            $categories = Categorie::with('sousCategories')->get();
+            return view('admin.produits.index', compact('produits', 'categories'));
+        } else {
+            return redirect()->route('admin.commandes');
+        }
+        
     }
 
     /**
