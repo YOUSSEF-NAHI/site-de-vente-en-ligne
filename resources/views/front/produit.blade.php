@@ -50,7 +50,7 @@
     </div>
     @auth
     <div class="my-auto mr-4">
-      <a href="#addComment"" 
+      <a href="#addComment" data-toggle="modal" 
         style="color: white; background-color:green; padding:5px; border-radius:10px">
         ajouter
       </a>
